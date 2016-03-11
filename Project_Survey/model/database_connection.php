@@ -16,8 +16,8 @@ if ($_SERVER['HTTP_HOST'] == "localhost" OR $_SERVER['HTTP_HOST'] == "127.0.0.1"
 try {
 	$db = new PDO($dsn, $username, $pass);
 		if ($debug) {
-			echo "Successfully connected to: " . $host_location;
-			echo "<p />";
+			// echo "Successfully connected to: " . $host_location;
+			// echo "<p />";
 		}
 	}
 	catch (PDOException $e) {

@@ -1,7 +1,4 @@
 <?php
-// Start session management with a persistent cookie
-$lifetime = 60 * 60 * 24 * 1095;    // 3 years in seconds
-session_set_cookie_params($lifetime, '/');
 session_start();
 
 require('./model/database_connection.php');
@@ -16,6 +13,7 @@ if ($action === NULL) {
         $action = 'home';
     }
 }
+echo $action;
 
 // Add or update cart as needed
 switch($action) {
@@ -27,19 +25,41 @@ switch($action) {
       $password = filter_input(INPUT_POST, 'password');
       //echo $userName;
       //echo $password;
-      $user = validateUser($userName, $password);
-      //include('view/home.php');
-      print_r($user);
+      $ifValid = validateUser($userName, $password);
+      include('view/home.php');
+
+      if ($ifValid == true) {
+        print_r($_SESSION);
+      }
+      // echo $_SESSION['userLevel'];
+      //
+      // if(isset($_SESSION['userLevel'])) {
+      //
+      //     if ($_SESSION['userLevel'] == 'A') {
+      //       $login_message = 'Logged in as Admin';
+      //       include('/view/admin_header.php');
+      //       include('view/admin_view.php');
+      //     }
+      //     elseif ($_SESSION['userLevel'] == 'M') {
+      //       $login_message = 'Logged in as Member';
+      //       include('/view/member_header.php');
+      //       include('view/member_view.php');
+      //     }
+      //     else {
+      //       $login_message = 'Please Log in';
+      //       include('view/home.php');
+      //     }
+      // }
+
       break;
   case 'register':
       $firstName = filter_input(INPUT_POST, 'firstName');
-      echo $firstName;
       $lastName = filter_input(INPUT_POST, 'lastName');
-      $email = filter_input(INPUT_POST, 'email');
       $userName = filter_input(INPUT_POST, 'userName');
+      $email = filter_input(INPUT_POST, 'email');
       $password = filter_input(INPUT_POST, 'password');
-      $password = hash('sha256', $password);
-      registerUser($firstName, $lastName, $email, $userName, $password);
+      registerUser($firstName, $lastName, $userName, $email, $password);
+      include('view/home.php');
       break;
   case 'membership':
       include('view/membership_view.php');
