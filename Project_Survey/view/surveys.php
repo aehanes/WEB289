@@ -12,13 +12,13 @@ $title = "Surveys";
   <?php } ?>
 <?php if ((!empty($_SESSION)) && ($_SESSION['userLevel'] == 'M')) { ?>
     <h2>Take Survey</h2>
-    <p>Thank you [firstName] participating! Please take the survey for [today's date].</p>
+    <p>Thank you <?php echo ucfirst(($_SESSION['userName'])); ?> for participating! Please take the survey for <?php $today = date("F j, Y") ?> <?php echo $today; ?>.</p>
     <!-- survey -->
     <div class="survey">
   <?php } ?>
 <?php if ((!empty($_SESSION)) && ($_SESSION['userLevel'] == 'A')) { ?>
     <h2>Create Survey</h2>
-     <p>Please create the survey for [today's date].</p>
+     <p>Please create the survey for <?php $today = date("F j, Y") ?> <?php echo $today; ?>.</p>
     <!-- <form>
     <div class="form-group">
       <select class="form-control">

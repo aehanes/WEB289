@@ -7,7 +7,7 @@ $title = "Home";
     <!--check to see if session is set -->
     <?php
     if (isset($firstName)) {
-      print "<h3>Thanks for Registering, $firstName</h3>";
+      print "<h3>Thanks for Registering! $firstName</h3>";
     }
     ?>
 
@@ -59,10 +59,10 @@ $title = "Home";
 
             <div class="container">
             <?php if ((!empty($_SESSION)) && ($_SESSION['userLevel'] == 'M')) { ?>
-                <p>To take the survey for [today's date], please click here or use the survey tab.</p>
+                <p>To take the survey for <?php $today = date("F j, Y") ?> <?php echo $today; ?>, please click <a href="index.php?action=surveys">here.</a></p>
               <?php } ?>
               <?php if ((!empty($_SESSION)) && ($_SESSION['userLevel'] == 'A')) { ?>
-                  <p>To create a survey for [today's date], please click here or use the survey tab.</p>
+                  <p>To create a survey for <?php $today = date("F j, Y") ?> <?php echo $today; ?>, please click <a href="index.php?action=surveys">here.</a></p>
                 <?php } ?>
         </div> <!-- Main -->
       </div> <!-- end homepage content -->

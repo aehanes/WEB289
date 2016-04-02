@@ -21,9 +21,14 @@ function validateUser($userName, $password) {
 
 	if ($valid == true) {
 		// set session vars
-		$_SESSION['userName'] = $user['userName'];
 		$_SESSION['userID'] = $user['userID'];
+		$_SESSION['firstName'] = $user['firstName'];
+		$_SESSION['lastName'] = $user['lastName'];
+		$_SESSION['email'] = $user['email'];
+		$_SESSION['userName'] = $user['userName'];
+		$_SESSION['password'] = $user['password'];
 		$_SESSION['userLevel'] = $user['userLevel'];
+		// set all variables for each user //
 		return true;
 	} else {
 		$errors = "Username or Password is incorrect.";
@@ -67,4 +72,45 @@ function registerUser($firstName, $lastName, $userName, $email, $password) {
 	}
 }
 
+function getUserName() {
+	global $db;
+	global $errors;
+
+	$query = 'SELECT firstName, lastName, userID from Users';
+	$statement = $db->prepare($query);
+	$statement->execute();
+	$users = $statement->fetchAll(PDO::FETCH_ASSOC);
+	$statement->closeCursor();
+	return $users;
+}
+
+function getAllUserInfo() {
+	global $db;
+	global $errors;
+
+	$query = 'SELECT * from Users';
+	$statement = $db->prepare($query);
+	$statement->execute();
+	$users = $statement->fetchAll(PDO::FETCH_ASSOC);
+	$statement->closeCursor();
+	return $users;
+}
+
+function edit_user($userID) {
+	global $db;
+	global $errors;
+
+	//Fetch single user row
+	$query = 'SELECT * FROM Users WHERE userID = :userID';
+	$statement = $db->prepare($query);
+	$statement->bindValue(':userID', $userID);
+	$statement->execute();
+	$user = $statement->fetch(PDO::FETCH_ASSOC);
+	$statement->closeCursor();
+	return $user;
+}
+//
+// function update_user() {
+// 	insert into
+// }
 ?>

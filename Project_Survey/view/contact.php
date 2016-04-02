@@ -7,5 +7,16 @@ $title = "Contact Us";
 </div>
 
 <div class="container">
-  <p>The contact info for Highland will go here.</p>
+  <!-- <img class="contact-brewery, img-responsive" src="images/brewery-people.jpg" alt="People at Highland"> -->
+<address>
+  <strong>Highland Brewery</strong><br>
+  12 Old Charlotte Hwy<br>
+  Asheville, NC 28803<br>
+  <abbr title="Phone">P:</abbr> (828) 299-3370
+</address>
+
+<address>
+  <strong>Highland QC Dept</strong><br>
+  <a href="mailto:#">hqcdept@test.com</a>
+</address>
 </div>

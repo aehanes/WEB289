@@ -13,6 +13,8 @@ if ($action === NULL) {
     }
 }
 
+echo $action;
+
 // Add or update cart as needed
 switch($action) {
   case 'home':
@@ -53,8 +55,18 @@ switch($action) {
   case 'users':
       include('view/users.php');
       break;
-
-
+  case 'edit_user':
+      $userID = filter_input(INPUT_POST, 'userID');
+      $user = edit_user($userID);
+      include('view/usersInfoForm.php');
+      break;
+  // call allUserInfo: that has a query that will return all of the user info.
+  // write my foreach loop to pull out each individual user
+    //  break;
+     //case 'update_user':
+    //  $userId = filter_input(userId);
+    //  $firstName
+    //  update_user($userId, etc.);
 }
 
 ?>
