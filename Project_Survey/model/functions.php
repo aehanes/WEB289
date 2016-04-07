@@ -109,8 +109,84 @@ function edit_user($userID) {
 	$statement->closeCursor();
 	return $user;
 }
-//
-// function update_user() {
-// 	insert into
-// }
+
+function update_user($userID, $firstName, $lastName, $email, $userName, $password, $userLevel) {
+    global $db;
+		global $errors;
+
+    $query = "UPDATE Users SET
+								userID = :userID,
+                firstName = :firstName,
+                lastName = :lastName,
+								email = :email,
+								userName = :userName,
+								password = :password,
+								userLevel = :userLevel
+              WHERE userID = :userID";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':userID', $userID);
+    $statement->bindValue(':firstName', $firstName);
+    $statement->bindValue(':lastName', $lastName);
+    $statement->bindValue(':email', $email);
+		$statement->bindValue(':userName', $userName);
+		$statement->bindValue(':password', $password);
+		$statement->bindValue(':userLevel', $userLevel);
+		$statement->execute();
+    $statement->closeCursor();
+		// return $row_count;
+}
+
+
+function getBrands() {
+	global $db;
+	global $errors;
+
+	$query = 'SELECT brandID, brandName from Brands';
+	$statement = $db->prepare($query);
+	$statement->execute();
+	$brands = $statement->fetchAll(PDO::FETCH_ASSOC);
+	$statement->closeCursor();
+	return $brands;
+}
+
+function getOrigins() {
+	global $db;
+	global $errors;
+
+	$query = 'SELECT originID, type from Origin';
+	$statement = $db->prepare($query);
+	$statement->execute();
+	$origins = $statement->fetchAll(PDO::FETCH_ASSOC);
+	$statement->closeCursor();
+	return $origins;
+}
+
+function getQuestions() {
+	global $db;
+	global $errors;
+
+	$query = 'SELECT questionID, questionText from Questions';
+	$statement = $db->prepare($query);
+	$statement->execute();
+	$questions = $statement->fetchAll(PDO::FETCH_ASSOC);
+	$statement->closeCursor();
+	return $questions;
+}
+
+function create_survey($brand, $origin, $batch) {
+	global $db;
+	global $errors;
+
+	$query = 'INSERT INTO Sample
+								(brandID, originID, batch)
+						VALUES
+								(:brandID, :originID, :batch)';
+	$statement = $db->prepare($query);
+	$statement->bindValue(':brandID', $brand);
+	$statement->bindValue(':originID', $origin);
+	$statement->bindValue(':batch', $batch);
+	$statement->execute();
+	$statement->closeCursor();
+	
+}
 ?>

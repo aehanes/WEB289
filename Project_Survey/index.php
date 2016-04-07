@@ -15,7 +15,7 @@ if ($action === NULL) {
 
 echo $action;
 
-// Add or update cart as needed
+// Add or update user as needed
 switch($action) {
   case 'home':
       include('view/home.php');
@@ -60,13 +60,26 @@ switch($action) {
       $user = edit_user($userID);
       include('view/usersInfoForm.php');
       break;
-  // call allUserInfo: that has a query that will return all of the user info.
-  // write my foreach loop to pull out each individual user
-    //  break;
-     //case 'update_user':
-    //  $userId = filter_input(userId);
-    //  $firstName
-    //  update_user($userId, etc.);
+   case 'update_user':
+     $userID = filter_input(INPUT_POST, 'userID');
+     $firstName = filter_input(INPUT_POST, 'firstName');
+     $lastName = filter_input(INPUT_POST, 'lastName');
+     $email = filter_input(INPUT_POST, 'email');
+     $userName = filter_input(INPUT_POST, 'userName');
+     $password = filter_input(INPUT_POST, 'password');
+     $userLevel = filter_input(INPUT_POST, 'userLevel');
+     update_user($userID, $firstName, $lastName, $email, $userName, $password, $userLevel);
+     $user = edit_user($userID);
+     include('view/usersInfoForm.php');
+     break;
+   case 'create-survey':
+      $brand = filter_input(INPUT_POST, 'brand');
+      $origin = filter_input(INPUT_POST, 'origin');
+      $batch = filter_input(INPUT_POST, 'batch');
+      $survey_values = array($brand,$origin,$batch);
+      create_survey($brand,$origin,$batch);
+      include('view/home.php');
+      // var_dump($survey_values);
 }
 
 ?>

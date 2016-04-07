@@ -19,11 +19,12 @@ $title = "Users";
 <?php
   $users = getUserName();
   foreach ($users as $user) { ?>
-     <?php echo '<a href="#" class="list-group-item">' . $user['firstName'] . " " . $user['lastName'] . '</a>'; ?>
+     <?php //echo '<a href="#" class="list-group-item">' . $user['firstName'] . " " . $user['lastName'] . '</a>'; ?>
      <form action="." method="post">
         <input name="action" type="hidden" value="edit_user">
         <input type="hidden" value="<?php echo $user['userID']; ?>" name="userID" id="userID">
-        <input type="submit" value="Edit">
+        <!-- <input type="submit" value="Edit"> -->
+        <button class="btn btn-default" type="submit"><?php echo $user['firstName'] . " " . $user['lastName']; ?></button>
     </form>
 <?php } ?>
 </div> <!-- end usersList div -->

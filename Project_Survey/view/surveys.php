@@ -14,55 +14,68 @@ $title = "Surveys";
     <h2>Take Survey</h2>
     <p>Thank you <?php echo ucfirst(($_SESSION['userName'])); ?> for participating! Please take the survey for <?php $today = date("F j, Y") ?> <?php echo $today; ?>.</p>
     <!-- survey -->
+    <div class="row">
+      <div clsas="col-sm-12">
+
+    <!-- print out the survey that is stored in the database with a "submit"survey button -->
     <div class="survey">
   <?php } ?>
-<?php if ((!empty($_SESSION)) && ($_SESSION['userLevel'] == 'A')) { ?>
+  <?php if ((!empty($_SESSION)) && ($_SESSION['userLevel'] == 'A')) { ?>
     <h2>Create Survey</h2>
-     <p>Please create the survey for <?php $today = date("F j, Y") ?> <?php echo $today; ?>.</p>
-    <!-- <form>
-    <div class="form-group">
-      <select class="form-control">
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
-      </select>
-      <label class="radio-inline">Is Appearance TTT?
-        <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> yes
-      </label>
-      <label class="radio-inline">
-        <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> no
-      </label>
-      <label class="radio-inline">Is Aroma TTT?
-        <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> yes
-      </label>
-      <label class="radio-inline">
-        <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> no
-      </label>
-      <label class="radio-inline">Is Flavor True to Type?
-        <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> yes
-      </label>
-      <label class="radio-inline">
-        <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> no
-      </label>
-      <label class="radio-inline">Is Mouthfeel True to Type?
-        <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> yes
-      </label>
-      <label class="radio-inline">
-        <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> no
-      </label>
-      <label class="radio-inline">Is this Beer TTT Overall?
-        <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> yes
-      </label>
-      <label class="radio-inline">
-        <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> no
-      </label>
-      <label>Notes:
-      <textarea class="form-control" rows="3"></textarea>
-    </label> -->
-    </div> <!-- end survey form -->
-    </form>
+     <p>Please choose the Sample for <?php $today = date("F j, Y") ?> <?php echo $today; ?>.</p>
+
+
+       <div class="row">
+         <div class="col-sm-12">
+
+
+          <form class="form-inline" action="." method="POST">
+            <div class="form-group">
+              <select name="brand" class="form-control">
+                <!-- dropdown list of brand -->
+                <?php $brands = getBrands(); ?>
+                <option selected>Please choose a Brand</option>
+
+                <?php foreach($brands as $brand) { ?>
+                <option value="<?php echo $brand['brandID']; ?>"><?php echo $brand['brandName']; ?></option>
+                <?php } ?>
+
+              </select>
+            </div><!-- end form group -->
+
+            <div class="form-group">
+              <select name="origin" class="form-control">
+                <!-- dropdown list of origins -->
+                <?php $origins = getOrigins(); ?>
+                  <option selected>Please choose an Origin</option>
+
+                <?php foreach($origins as $origin) { ?>
+                  <option value="<?php echo $origin['originID']; ?>"><?php echo $origin['type']; ?></option>
+                <?php } ?>
+              </select>
+            </div><!-- end form group -->
+
+            <div class="form-group">
+              <label for="batch">Batch #:</label>
+                <input value="" type="text" class="form-control" name="batch" id="batch" placeholder="Batch #" required>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-2">
+                <input name="action" type="hidden" value="create-survey">
+                <button type="submit" formaction="." class="btn btn-default">Create Survey</button>
+              </div>
+            </div>
+
+          </form> <!-- end inline form -->
+
+
+
+
+      </div> <!-- end col-12 -->
+    </div> <!-- end row div -->
+
+
   <?php } ?>
 
 
