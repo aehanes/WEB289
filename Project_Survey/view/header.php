@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" href="style.css">
+  <script src='https://www.google.com/recaptcha/api.js'></script>
     <title>Highland | QC/QA Control Survey</title>
 </head>
 <body>
@@ -36,13 +37,14 @@
         <?php if (empty($_SESSION)) { ?>
         <li><a href="index.php?action=register">Register</a></li>
         <?php } ?>
-        <?php
-          if (!empty($_SESSION)) {
-          ?>
+        <?php if (!empty($_SESSION)) { ?>
             <li><a href="index.php?action=surveys">Surveys</a></li>
-          <?php } ?>
+            <?php if ($_SESSION['userLevel'] == 'A') { ?>
+              <li><a href="index.php?action=samples">Samples</a></li>
+              <li><a href="index.php?action=brands">Brands</a></li>
+            <?php } // end if admin ?>
+          <?php } //end !empty($sesson) ?>
           <li><a href="index.php?action=contact">Contact</a></li>
-
       </ul>
       <?php
         if (!empty($_SESSION)) {

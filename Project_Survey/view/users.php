@@ -12,7 +12,6 @@ $title = "Users";
 <?php } ?>
 <?php if ((!empty($_SESSION)) && ($_SESSION['userLevel'] == 'A')) { ?>
     <div class="container">
-    <p>This page will be used for the admin to maintain and update user information. For example, adding an admin when necessary.</p>
 
 <!-- list all of the usersnames as links -->
 <div class="usersList list-group">

@@ -62,7 +62,7 @@ $title = "Home";
                 <p>To take the survey for <?php $today = date("F j, Y") ?> <?php echo $today; ?>, please click <a href="index.php?action=surveys">here.</a></p>
               <?php } ?>
               <?php if ((!empty($_SESSION)) && ($_SESSION['userLevel'] == 'A')) { ?>
-                  <p>To create a survey for <?php $today = date("F j, Y") ?> <?php echo $today; ?>, please click <a href="index.php?action=surveys">here.</a></p>
+                  <p>To create the samples for <?php $today = date("F j, Y") ?> <?php echo $today; ?>, please click <a href="index.php?action=samples">here.</a></p>
                 <?php } ?>
         </div> <!-- Main -->
       </div> <!-- end homepage content -->

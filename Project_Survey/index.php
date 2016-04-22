@@ -13,7 +13,6 @@ if ($action === NULL) {
     }
 }
 
-echo $action;
 
 // Add or update user as needed
 switch($action) {
@@ -42,6 +41,12 @@ switch($action) {
       } else {
         include('view/register.php');
       }
+      break;
+  case 'brands':
+      include('view/brands.php');
+      break;
+  case 'samples':
+      include('view/samples.php');
       break;
   case 'surveys':
       include('view/surveys.php');
@@ -72,14 +77,24 @@ switch($action) {
      $user = edit_user($userID);
      include('view/usersInfoForm.php');
      break;
-   case 'create-survey':
+   case 'createSample':
       $brand = filter_input(INPUT_POST, 'brand');
       $origin = filter_input(INPUT_POST, 'origin');
       $batch = filter_input(INPUT_POST, 'batch');
       $survey_values = array($brand,$origin,$batch);
-      create_survey($brand,$origin,$batch);
-      include('view/home.php');
-      // var_dump($survey_values);
+      createSample($brand,$origin,$batch);
+      include('view/samples.php');
+      break;
+   case 'addBrand':
+      $brand = filter_input(INPUT_POST, 'brand');
+      addBrand($brand);
+      include('view/brands.php');
+      break;
+    case 'addOrigin':
+      $origin = filter_input(INPUT_POST, 'origin');
+      addOrigin($origin);
+      include('view/brands.php');
+      break;  
 }
 
 ?>

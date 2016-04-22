@@ -9,74 +9,58 @@ $title = "Surveys";
 <div class="container">
 <?php if (empty($_SESSION['userLevel'])) { ?>
   <p>You must be logged in to view this page. Please <a href="index.php?action=login">login</a> or <a href="index.php?action=register">register</a> to continue.</p>
-  <?php } ?>
-<?php if ((!empty($_SESSION)) && ($_SESSION['userLevel'] == 'M')) { ?>
+<?php } ?>
+
+<?php if (!empty($_SESSION)) { ?>
     <h2>Take Survey</h2>
     <p>Thank you <?php echo ucfirst(($_SESSION['userName'])); ?> for participating! Please take the survey for <?php $today = date("F j, Y") ?> <?php echo $today; ?>.</p>
     <!-- survey -->
     <div class="row">
-      <div clsas="col-sm-12">
+      <div class="col-sm-12">
+      <!-- print out survey -->
 
-    <!-- print out the survey that is stored in the database with a "submit"survey button -->
-    <div class="survey">
-  <?php } ?>
-  <?php if ((!empty($_SESSION)) && ($_SESSION['userLevel'] == 'A')) { ?>
-    <h2>Create Survey</h2>
-     <p>Please choose the Sample for <?php $today = date("F j, Y") ?> <?php echo $today; ?>.</p>
+      <!-- place form inside of foreach (each sample inside of its own form...id based on sample id) -->
+      <!-- add increment and variable -->
 
+      <form>
+      <?php $samples = getSamples();
+        // print '<pre>';
+        // print_r($samples);
+        // print '</pre>';
 
-       <div class="row">
-         <div class="col-sm-12">
+        $questions = getQuestions();
+        // print '<pre>';
+        // print_r($questions);
+        // print '</pre>';
+       ?> 
 
+       <?php foreach($samples as $sample) { ?>
+       <?php $brand_name = getBrand($sample['brandID']); ?>
+       <?php $origin_type = getOrigin($sample['originID']); ?>
 
-          <form class="form-inline" action="." method="POST">
-            <div class="form-group">
-              <select name="brand" class="form-control">
-                <!-- dropdown list of brand -->
-                <?php $brands = getBrands(); ?>
-                <option selected>Please choose a Brand</option>
+        <div class="form-group">
+         
 
-                <?php foreach($brands as $brand) { ?>
-                <option value="<?php echo $brand['brandID']; ?>"><?php echo $brand['brandName']; ?></option>
-                <?php } ?>
+            <h3><?php print $brand_name['brandName'] . ' - ' . $origin_type['type']; ?> </h3>
+                  <?php foreach($questions as $question) { ?>
+                  <p><?php print $question['questionText']; ?></p>
+                    <input type="radio" name="<?php print $question['questionID']; ?>" value="Yes">Yes<br>
+                    <input type="radio" name="<?php print $question['questionID']; ?>" value="No">No<br>
+                  <?php } //end question loop ?>
 
-              </select>
-            </div><!-- end form group -->
-
-            <div class="form-group">
-              <select name="origin" class="form-control">
-                <!-- dropdown list of origins -->
-                <?php $origins = getOrigins(); ?>
-                  <option selected>Please choose an Origin</option>
-
-                <?php foreach($origins as $origin) { ?>
-                  <option value="<?php echo $origin['originID']; ?>"><?php echo $origin['type']; ?></option>
-                <?php } ?>
-              </select>
-            </div><!-- end form group -->
-
-            <div class="form-group">
-              <label for="batch">Batch #:</label>
-                <input value="" type="text" class="form-control" name="batch" id="batch" placeholder="Batch #" required>
-            </div>
-
-            <div class="row">
-              <div class="col-sm-2">
-                <input name="action" type="hidden" value="create-survey">
-                <button type="submit" formaction="." class="btn btn-default">Create Survey</button>
-              </div>
-            </div>
-
-          </form> <!-- end inline form -->
+           
+              <h4>Notes</h4>
+                <input type="textarea" name="<?php print $sample['sampleID']; ?>">
+        </div>
+        
 
 
+       <?php } //end sample loop ?> 
+        <input name="action" type="hidden" value="submit-survey">
+        <button type="submit" class="btn btn-default">Submit</button>
 
-
-      </div> <!-- end col-12 -->
-    </div> <!-- end row div -->
-
-
-  <?php } ?>
-
+      </form>
+    </div>
+<?php } ?>
 
 </div> <!-- end container div

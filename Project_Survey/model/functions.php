@@ -128,14 +128,54 @@ function update_user($userID, $firstName, $lastName, $email, $userName, $passwor
     $statement->bindValue(':firstName', $firstName);
     $statement->bindValue(':lastName', $lastName);
     $statement->bindValue(':email', $email);
-		$statement->bindValue(':userName', $userName);
-		$statement->bindValue(':password', $password);
-		$statement->bindValue(':userLevel', $userLevel);
-		$statement->execute();
+	$statement->bindValue(':userName', $userName);
+	$statement->bindValue(':password', $password);
+	$statement->bindValue(':userLevel', $userLevel);
+	$statement->execute();
     $statement->closeCursor();
 		// return $row_count;
 }
 
+
+function addBrand($brand) { 
+	global $db;
+	global $errors;
+
+	$query = 'INSERT INTO Brands
+								(brandName)
+						VALUES
+								(:brand)';
+	$statement = $db->prepare($query);
+	$statement->bindValue(':brand', $brand);
+	$statement->execute();
+	$statement->closeCursor();
+}
+
+function addOrigin($origin) { 
+	global $db;
+	global $errors;
+
+	$query = 'INSERT INTO Origin
+								(type)
+						VALUES
+								(:origin)';
+	$statement = $db->prepare($query);
+	$statement->bindValue(':origin', $origin);
+	$statement->execute();
+	$statement->closeCursor();
+}
+
+function getBrand($brandID) {
+	global $db;
+	global $errors;
+	$query = 'SELECT brandName from Brands WHERE brandID = :brandID';
+	$statement = $db->prepare($query);
+	$statement->bindValue(':brandID', $brandID);
+	$statement->execute();
+	$brand = $statement->fetch(PDO::FETCH_ASSOC);
+	$statement->closeCursor();
+	return $brand;
+}
 
 function getBrands() {
 	global $db;
@@ -147,6 +187,18 @@ function getBrands() {
 	$brands = $statement->fetchAll(PDO::FETCH_ASSOC);
 	$statement->closeCursor();
 	return $brands;
+}
+
+function getOrigin($originID) {
+	global $db;
+	global $errors;
+	$query = 'SELECT type from Origin WHERE originID = :originID';
+	$statement = $db->prepare($query);
+	$statement->bindValue(':originID', $originID);
+	$statement->execute();
+	$origin = $statement->fetch(PDO::FETCH_ASSOC);
+	$statement->closeCursor();
+	return $origin;
 }
 
 function getOrigins() {
@@ -173,7 +225,7 @@ function getQuestions() {
 	return $questions;
 }
 
-function create_survey($brand, $origin, $batch) {
+function createSample($brand, $origin, $batch) {
 	global $db;
 	global $errors;
 
@@ -186,7 +238,33 @@ function create_survey($brand, $origin, $batch) {
 	$statement->bindValue(':originID', $origin);
 	$statement->bindValue(':batch', $batch);
 	$statement->execute();
-	$statement->closeCursor();
-	
+	$statement->closeCursor();	
 }
+
+function getSamples() {
+	global $db;
+	global $errors;
+
+	$query = 'SELECT * from Sample WHERE createDate >= CURDATE()';
+	$statement = $db->prepare($query);
+	$statement->execute();
+	$samples = $statement->fetchAll(PDO::FETCH_ASSOC);
+	$statement->closeCursor();
+	return $samples;
+}
+
+function get_questions() {
+	global $db;
+	global $errors;
+
+	$query = 'SELECT * from Questions';
+	$statement = $db->prepare($query);
+	$statement->execute();
+	$questions = $statement->fetchAll(PDO::FETCH_ASSOC);
+	$statement->closeCursor();
+	return $questions;
+}
+
+
+
 ?>

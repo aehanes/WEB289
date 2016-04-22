@@ -62,6 +62,7 @@ $title = "Register";
       <button type="submit" class="btn btn-default">Register</button>
     </div>
   </div>
+  <div class="g-recaptcha" data-sitekey="6LfS8h0TAAAAAPhldDsSW8j1sOQJzhyGWbSZcE6z"></div>
 </form>
 </div> <!-- end main div -->
 
