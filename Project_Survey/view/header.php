@@ -1,18 +1,23 @@
 
+<!-- 
+  Author: Ashley Hanes
+  Revision Date: 05/05/2016
+  File Name: header.php
+  Description: Contains the header information, including the navbar and login/logout button
+--> 
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <!-- Latest compiled and minified CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-  <!-- Optional theme -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" type="text/css" href="style.css">
-  <script src='https://www.google.com/recaptcha/api.js'></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">  <meta name="viewport" content="width=device-width, initial-scale=1">
+<!--   <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"> -->
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link href='https://fonts.googleapis.com/css?family=IM+Fell+Great+Primer+SC' rel='stylesheet' type='text/css'>
     <title>Highland | QC/QA Control Survey</title>
 </head>
 <body>
+  <div class="wrapper">
   <div class="container">
     <!-- <h1>QC Survey</h1> -->
 
@@ -27,7 +32,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.php"><img alt="Brand" src="images\logo.png"></a>
+      <a class="navbar-brand" href="index.php"><img alt="Brand" src="images/logo.png"></a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -56,7 +61,9 @@
             <?php echo $_SESSION['userName']; ?>
             <span class="caret"></span></a>
           <ul class="dropdown-menu">
+            <?php if ($_SESSION['userLevel'] == 'M') { ?>
             <li><a href="index.php?action=account">Account Settings</a></li>
+            <?php } ?>
             <?php if ($_SESSION['userLevel'] == 'A') { ?>
               <li><a href="index.php?action=users">Users</a></li>
             <?php } ?>

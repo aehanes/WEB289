@@ -1,3 +1,10 @@
+<!-- 
+	Author: Ashley Hanes
+	Revision Date: 05/05/2016
+	File Name: contact.php
+	Description: Contact page for the brewery
+-->	
+
 <?php
 include('view/header.php');
 $title = "Contact Us";
@@ -7,7 +14,7 @@ $title = "Contact Us";
 </div>
 
 <div class="container">
-  <!-- <img class="contact-brewery, img-responsive" src="images/brewery-people.jpg" alt="People at Highland"> -->
+  <img class="contact-brewery, img-responsive" src="images/brewery-people.jpg" height="300px" width="500px" alt="People at Highland">
 <address>
   <strong>Highland Brewery</strong><br>
   12 Old Charlotte Hwy<br>
@@ -20,3 +27,7 @@ $title = "Contact Us";
   <a href="mailto:#">hqcdept@test.com</a>
 </address>
 </div>
+
+<?php include("view/footer.php"); ?>
+
+

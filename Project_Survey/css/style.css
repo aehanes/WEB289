@@ -1,0 +1,89 @@
+/*color*?
+/* red : #B80D35;
+   dark gold: #D2A80C;
+   light gold: #E5CD86;
+*/
+
+body:after {
+	content: '';
+	display: block;
+	position: fixed;
+	top: 0;
+	left: 0;
+	background-image: url(../images/blueridge.jpg);
+	background-size: cover;
+	width: 100%;
+	height: 100%;
+    opacity: 0.2;
+    z-index: -1;
+}
+
+.wrapper {
+	position: relative;
+}
+
+a.navbar-brand {
+  padding: 0;
+}
+
+a.navbar-brand img {
+  height: 50px;
+}
+
+h1, h2, h3, h4 {
+	font-family: 'IM Fell Great Primer SC', serif;
+}
+h1, h2, h3, h4, p {
+	color: #4d4d4d;
+}
+
+a.navbar-brand {
+	padding-left: 10px;
+}
+
+.navbar-brand {
+	margin: 5px;
+}
+
+.navbar-default .navbar-nav {
+	font-family: 'IM Fell Great Primer SC', serif;
+	font-size: 18px;
+}
+
+.navbar-default .navbar-nav>.active>a, 
+.navbar-default .navbar-nav>.active>a:focus, 
+.navbar-default .navbar-nav>.active>a:hover {
+	color: #B80D35;
+	background-color: transparent;
+}
+
+.container {
+/*	position: relative;
+*/	/*min-height: 00px;*/
+}
+
+@media (min-width: 768px) {
+	.login-form .form-control {
+		width: 50%;
+	}
+}
+
+.btn.btn-default {
+    color: #fff;
+    background: #B80D35;
+    text-shadow: none;
+    margin: 20px 0;
+}
+
+.brands .btn.btn-default {
+	margin: 0;
+}
+
+
+/* Samples */
+
+@media (min-width: 768px) {
+	.createdSamples ul{
+		width: 50%;
+	}
+}

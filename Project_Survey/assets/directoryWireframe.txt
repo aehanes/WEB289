@@ -1,0 +1,43 @@
+.
+├── assets
+│   ├── database_final.sql
+│   ├── erd.jpg
+│   ├── index.php
+│   └── originalUneditedArtwork
+│       ├── brewery\ copy.jpg
+│       └── logo\ copy.png
+├── css
+│   ├── bootstrap.min.css
+│   └── style.css
+├── directoryWireframe.txt
+├── errors
+│   └── database_error.php
+├── images
+│   ├── blueridge.jpg
+│   ├── brewery-people.jpg
+│   ├── brewery.jpg
+│   ├── large_mountains.jpg
+│   ├── logo.png
+│   ├── mountains.jpg
+│   └── old_paper.jpg
+├── index.php
+├── js
+│   └── bootstrap.min.js
+├── logout.php
+├── model
+│   ├── database_connection.php
+│   └── functions.php
+└── view
+    ├── account.php
+    ├── brands.php
+    ├── contact.php
+    ├── footer.php
+    ├── header.php
+    ├── home.php
+    ├── register.php
+    ├── samples.php
+    ├── surveys.php
+    ├── users.php
+    └── usersInfoForm.php
+
+8 directories, 32 files

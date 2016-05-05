@@ -1,3 +1,10 @@
+<!-- 
+  Author: Ashley Hanes
+  Revision Date: 05/05/2016
+  File Name: users.php
+  Description: Admin accessible page to update the user information. 
+--> 
+
 <?php
 include('view/header.php');
 $title = "Users";
@@ -34,3 +41,5 @@ $title = "Users";
   $users = getAllUserInfo();
   print_r($users);
 ?> -->
+
+<?php include("view/footer.php"); ?>

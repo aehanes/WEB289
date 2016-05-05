@@ -1,3 +1,10 @@
+<!-- 
+  Author: Ashley Hanes
+  Revision Date: 05/05/2016
+  File Name: samples.php
+  Description: Page where the admin creates the samples for that days survey.
+--> 
+
 <?php
 include('view/header.php');
 $title = "Samples";
@@ -69,21 +76,18 @@ $title = "Samples";
 
 
           <div class="createdSamples">
-            <ul>
+            <ul class="list-group">
              <?php $samples = getSamples();
                foreach($samples as $sample) {
                $brand_name = getBrand($sample['brandID']);
                $origin_type = getOrigin($sample['originID']); ?>
-
-                  <li><?php print $brand_name['brandName'] . ' | ' . $origin_type['type']; ?></li>
+               
+                  <li class="list-group-item"><?php print $brand_name['brandName'] . ' | ' . $origin_type['type'] . ' | '. $sample['batch']; ?></li>
                <?php } ?>
           </ul>
           </div>
             
-          <p>To view the completed survey, click <a href="index.php?action=surveys">here.</a></p>  
-
-
-
+        
       </div> <!-- end col-12 -->
     </div> <!-- end row div -->
 
@@ -92,3 +96,5 @@ $title = "Samples";
 
 
 </div> <!-- end container div
+
+<?php include("view/footer.php"); ?>

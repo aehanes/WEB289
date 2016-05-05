@@ -1,3 +1,10 @@
+<!-- 
+  Author: Ashley Hanes
+  Revision Date: 05/05/2016
+  File Name: usersInfoForm.php
+  Description: Page where the admin actually updates the user information.
+--> 
+
 <?php
 include('view/header.php');
 $title = "Home";
@@ -53,3 +60,5 @@ $title = "Home";
     <input type="submit" value="Update">
 </form>
 <div> <!-- end main -->
+
+<?php include("view/footer.php"); ?>

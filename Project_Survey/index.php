@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+ini_set('display_errors', '1');
+
 require('model/database_connection.php');
 require('model/functions.php');
 
@@ -22,7 +24,6 @@ switch($action) {
   case 'login':
       $userName = filter_input(INPUT_POST, 'userName');
       $password = filter_input(INPUT_POST, 'password');
-
       $ifValid = validateUser($userName, $password);
       include('view/home.php');
       break;
@@ -30,12 +31,15 @@ switch($action) {
       include('view/register.php');
       break;
   case 'register-user':
-      $firstName = filter_input(INPUT_POST, 'firstName');
-      $lastName = filter_input(INPUT_POST, 'lastName');
-      $userName = filter_input(INPUT_POST, 'userName');
-      $email = filter_input(INPUT_POST, 'email');
+      $firstName = htmlentities(filter_input(INPUT_POST, 'firstName'));
+      $lastName = htmlentities(filter_input(INPUT_POST, 'lastName'));
+      $userName = htmlentities(filter_input(INPUT_POST, 'userName'));
+      $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
       $password = filter_input(INPUT_POST, 'password');
-      $registerUser = registerUser($firstName, $lastName, $userName, $email, $password);
+      $captcha = filter_input(INPUT_POST, 'captcha', FILTER_VALIDATE_INT);
+
+      $registerUser = registerUser($firstName, $lastName, $userName, $email, $password, $captcha);
+      
       if ($registerUser == true) {
         include('view/home.php');
       } else {
@@ -94,11 +98,31 @@ switch($action) {
       $origin = filter_input(INPUT_POST, 'origin');
       addOrigin($origin);
       include('view/brands.php');
-      break;  
+      break;
+    case 'submitSurvey':
+      $responses = array();
+      $sampleID = filter_input(INPUT_POST, 'sampleID');
+      $responses[] = filter_input(INPUT_POST, 'question1');
+      $responses[] = filter_input(INPUT_POST, 'question2');
+      $responses[] = filter_input(INPUT_POST, 'question3');
+      $responses[] = filter_input(INPUT_POST, 'question4');
+      $responses[] = filter_input(INPUT_POST, 'question5');
+      $responses[] = filter_input(INPUT_POST, 'question6');
+
+      $notes = filter_input(INPUT_POST, 'notes');
+      submitSurvey($sampleID, $responses, $notes);
+      include('view/surveys.php');
+      break;
+    case 'confirmation':
+      include('view/confirmation.php');
+      break;
+
+     
+
 }
 
 ?>
 
-<?php include("view/footer.php"); ?>
+<?php //include("view/footer.php"); ?>
 </body>
 </html>

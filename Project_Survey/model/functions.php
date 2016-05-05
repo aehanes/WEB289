@@ -1,5 +1,6 @@
 <?php
 
+//validates user for login
 function validateUser($userName, $password) {
 	global $db;
 	global $errors;
@@ -31,47 +32,54 @@ function validateUser($userName, $password) {
 		// set all variables for each user //
 		return true;
 	} else {
-		$errors = "Username or Password is incorrect.";
+		$errors = "The username or password is incorrect.";
 		return false;
 	}
 }
 
-function registerUser($firstName, $lastName, $userName, $email, $password) {
+//register user for member
+function registerUser($firstName, $lastName, $userName, $email, $password, $captcha) {
 	global $db;
 	global $errors;
 
-	$query = 'SELECT userName from Users WHERE userName = :userName';
-	$statement = $db->prepare($query);
-	$statement->bindValue(':userName', $userName);
-	$statement->execute();
-	$valid = ($statement->rowCount() == 1);
-	$statement->closeCursor();
-
-	//var_dump($valid);
-
-	if ($valid == false) {
-
-		$password = hash('sha256', $password);
-		//write an insert statement that GETS THE "POSTED" values from the form
-		$query = 'INSERT INTO Users
-									(firstName, lastName, userName, email, password)
-							VALUES
-									(:firstName, :lastName, :userName, :email, :password)';
+	if ($captcha == 7) {
+		$query = 'SELECT userName from Users WHERE userName = :userName';
 		$statement = $db->prepare($query);
-		$statement->bindValue(':firstName', $firstName);
-		$statement->bindValue(':lastName', $lastName);
-		$statement->bindValue(':email', $email);
 		$statement->bindValue(':userName', $userName);
-		$statement->bindValue(':password', $password);
 		$statement->execute();
+		$valid = ($statement->rowCount() == 1);
 		$statement->closeCursor();
-		return true;
+
+		//var_dump($valid);
+
+		if ($valid == false) {
+
+			$password = hash('sha256', $password);
+			//write an insert statement that GETS THE "POSTED" values from the form
+			$query = 'INSERT INTO Users
+										(firstName, lastName, userName, email, password)
+								VALUES
+										(:firstName, :lastName, :userName, :email, :password)';
+			$statement = $db->prepare($query);
+			$statement->bindValue(':firstName', $firstName);
+			$statement->bindValue(':lastName', $lastName);
+			$statement->bindValue(':email', $email);
+			$statement->bindValue(':userName', $userName);
+			$statement->bindValue(':password', $password);
+			$statement->execute();
+			$statement->closeCursor();
+			return true;
+		} else {
+			$errors = "Username is already taken. Please try another.";
+			return false;
+		}
 	} else {
-		$errors = "Username is already taken. Please try another.";
+		$errors = "Please check your math and try again.";
 		return false;
 	}
 }
 
+//get the user name and id
 function getUserName() {
 	global $db;
 	global $errors;
@@ -84,6 +92,7 @@ function getUserName() {
 	return $users;
 }
 
+//get all of the user info
 function getAllUserInfo() {
 	global $db;
 	global $errors;
@@ -96,6 +105,7 @@ function getAllUserInfo() {
 	return $users;
 }
 
+//allows the admin the ability to edit user information
 function edit_user($userID) {
 	global $db;
 	global $errors;
@@ -110,6 +120,7 @@ function edit_user($userID) {
 	return $user;
 }
 
+//updates the user information
 function update_user($userID, $firstName, $lastName, $email, $userName, $password, $userLevel) {
     global $db;
 		global $errors;
@@ -136,7 +147,29 @@ function update_user($userID, $firstName, $lastName, $email, $userName, $passwor
 		// return $row_count;
 }
 
+// function update_single_user($firstName, $lastName, $email, $userName, $password) {
+//     global $db;
+// 		global $errors;
 
+//     $query = "UPDATE Users SET
+//                 firstName = :firstName,
+//                 lastName = :lastName,
+// 								email = :email,
+// 								userName = :userName,
+// 								password = :password,
+//               WHERE userID = :userID";
+//     $statement = $db->prepare($query);
+//     $statement->bindValue(':firstName', $firstName);
+//     $statement->bindValue(':lastName', $lastName);
+//     $statement->bindValue(':email', $email);
+// 	$statement->bindValue(':userName', $userName);
+// 	$statement->bindValue(':password', $password);
+// 	$statement->execute();
+//     $statement->closeCursor();
+// 		// return $row_count;
+// }
+
+//add brands to the database as additional beers are made
 function addBrand($brand) { 
 	global $db;
 	global $errors;
@@ -151,6 +184,7 @@ function addBrand($brand) {
 	$statement->closeCursor();
 }
 
+//adds the origins to the database
 function addOrigin($origin) { 
 	global $db;
 	global $errors;
@@ -165,6 +199,7 @@ function addOrigin($origin) {
 	$statement->closeCursor();
 }
 
+//gets the Brand information based on Brand ID to display in the drop down
 function getBrand($brandID) {
 	global $db;
 	global $errors;
@@ -177,6 +212,7 @@ function getBrand($brandID) {
 	return $brand;
 }
 
+//gets brandID and brandName to display in a list of all possible brands
 function getBrands() {
 	global $db;
 	global $errors;
@@ -189,6 +225,7 @@ function getBrands() {
 	return $brands;
 }
 
+//gets the origin information based on OriginID to display in the drop down
 function getOrigin($originID) {
 	global $db;
 	global $errors;
@@ -201,6 +238,7 @@ function getOrigin($originID) {
 	return $origin;
 }
 
+//gets originID and originName to display in a list of all possible origin
 function getOrigins() {
 	global $db;
 	global $errors;
@@ -213,6 +251,7 @@ function getOrigins() {
 	return $origins;
 }
 
+//gets a list of all of the available questions
 function getQuestions() {
 	global $db;
 	global $errors;
@@ -225,6 +264,7 @@ function getQuestions() {
 	return $questions;
 }
 
+//creates the sample for today, brand + origin + batch
 function createSample($brand, $origin, $batch) {
 	global $db;
 	global $errors;
@@ -241,6 +281,7 @@ function createSample($brand, $origin, $batch) {
 	$statement->closeCursor();	
 }
 
+//gets all the samples for the current date
 function getSamples() {
 	global $db;
 	global $errors;
@@ -253,18 +294,84 @@ function getSamples() {
 	return $samples;
 }
 
-function get_questions() {
+//gets the samples for the current date and displays them on the page one at a time
+function getSamplesNew($limit, $offset) {
 	global $db;
 	global $errors;
 
-	$query = 'SELECT * from Questions';
+	$query = 'SELECT * from Sample 
+	WHERE createDate >= CURDATE()
+	ORDER BY sampleID
+	LIMIT :offset, :limit';
 	$statement = $db->prepare($query);
+	$statement->bindValue(':limit', $limit, PDO::PARAM_INT);
+	$statement->bindValue(':offset', $offset, PDO::PARAM_INT);
 	$statement->execute();
-	$questions = $statement->fetchAll(PDO::FETCH_ASSOC);
+	// $samples = $statement->fetchAll(PDO::FETCH_ASSOC);
+	// print_r($samples);
+	if ($statement->rowCount() > 0) {
+        // Define how we want to fetch the results
+        $statement->setFetchMode(PDO::FETCH_ASSOC);
+        $iterator = new IteratorIterator($statement);
+        return $iterator;
+
+    } else {
+        return false;
+    }
 	$statement->closeCursor();
-	return $questions;
 }
 
+//gets a count of the samples for current date
+function getSamplesCount() {
+	global $db;
+	global $errors;
 
+	$query = 'SELECT COUNT(*) FROM Sample WHERE createDate >= CURDATE()';
+	$statement = $db->prepare($query);
+	$statement->execute();
+	$sampleCount = $statement->fetchColumn();
+	$statement->closeCursor();
+	return $sampleCount;
+}
+
+//stores the survey responses in the response table and the notes table
+function submitSurvey($sampleID, $responses, $notes) {
+	global $db;
+	global $errors;
+
+	$userID = $_SESSION['userID'];
+
+	foreach($responses as $questionID => $response) {
+		$query = 'INSERT INTO Responses
+									(userID, questionID, sampleID, response, createDate)
+							VALUES
+									(:userID, :questionID, :sampleID, :response, now())';
+		$statement = $db->prepare($query);
+		$statement->bindValue(':userID', $userID);
+		$statement->bindValue(':questionID', $questionID);
+		$statement->bindValue(':sampleID', $sampleID);
+		$statement->bindValue(':response', $response);
+		$statement->execute();
+		$statement->closeCursor();
+	}
+}
+
+function completedSurvey($userID) {
+	global $db;
+	global $errors;
+
+	$query = 'SELECT Brands.brandName, Origin.type, Sample.batch, Questions.questionText, Responses.response, Responses.createDate FROM Responses
+				INNER JOIN Questions ON Responses.questionID = Questions.questionID
+				INNER JOIN Sample ON Responses.sampleID = Sample.sampleID
+				INNER JOIN Brands ON Sample.brandID = Brands.brandID
+				INNER JOIN Origin ON Sample.originID = Origin.originID
+					WHERE Responses.userID = :userID AND Responses.createDate <= CURDATE();';
+	$statement = $db->prepare($query);
+	$statement->bindValue(':userID', $userID);
+	$statement->execute();
+	$completedSurvey = $statement->fetchAll(PDO::FETCH_ASSOC);
+	$statement->closeCursor();
+	return $completedSurvey;
+}
 
 ?>
